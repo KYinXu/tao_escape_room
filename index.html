@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Passkey Celebration</title>
+<link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+  <h2 style="margin-bottom: -1vw;">ESCAPE THE ROOM</h2>
+  <h3> TAO WEEK FIVE GM </h3>
+  <div id="countdown">START</div>
+  <div class="input-group">
+    <input type="" id="passkey" placeholder="">
+    <button onclick="checkPasskey()">S</button>
+  </div>
+  <!--<p id="message" style="color:red;"></p>-->
+
+  <div id="celebration">
+    <canvas id="confetti-canvas" style="position:absolute"></canvas>
+    <h1 class="celebration-title">🎉 WE HAVE A WINNER! 🎉</h1>
+    <!--<p class="celebration-text">You entered the correct passkey!</p>-->
+    
+  </div>
+
+  <script>
+    let timeLeft = 3600; // 60 seconds
+    let timerStarted = false;
+    let timer;
+    const CORRECT_PASSKEY = "my favorite bird must be the penguin"; // Change this to your desired passkey
+    //const CORRECT_PASSKEY = "";
+    function checkPasskey() {
+      const input = document.getElementById('passkey').value;
+      
+      if (input.toLowerCase() === CORRECT_PASSKEY && timeLeft >= 0) {
+        showCelebration();
+      } else {
+        //document.getElementById('message').textContent = "Incorrect passkey. Try again!";
+        // document.getElementById('countdown').style.color = "#ff0000";
+        if(timeLeft >= 0){
+            pulseRed('countdown');
+        }
+        document.getElementById('passkey').value = "";
+      }
+    }
+
+    function showCelebration() {
+      document.getElementById('celebration').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      launchConfetti();
+    }
+
+    // Simple confetti animation
+    function launchConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+    //   canvas.width = window.innerWidth;
+    //   canvas.height = window.innerHeight;
+      canvas.width = window.outerWidth;
+      canvas.height = window.outerHeight;
+      const ctx = canvas.getContext('2d');
+      const confettiCount = 150;
+      const confetti = [];
+
+      for (let i = 0; i < confettiCount; i++) {
+        confetti.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * -canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * confettiCount,
+          color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+          tilt: Math.random() * 10 - 10
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confetti.forEach(c => {
+          ctx.beginPath();
+          ctx.arc(c.x, c.y, c.r, 0, 2 * Math.PI);
+          ctx.fillStyle = c.color;
+          ctx.fill();
+        });
+        update();
+      }
+
+      function update() {
+        confetti.forEach(c => {
+          c.y += Math.cos(c.d) + 2 + c.r / 2;
+          c.x += Math.sin(c.d);
+          if (c.y > canvas.height) {
+            c.y = -10;
+            c.x = Math.random() * canvas.width;
+          }
+        });
+      }
+
+      function animate() {
+        draw();
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+
+      // Set the starting time in seconds
+    
+
+const countdownElement = document.getElementById('countdown');
+
+countdownElement.addEventListener('click', () => {
+    if (timerStarted) return; // Prevent multiple starts
+    timerStarted = true;
+
+    timer = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+
+      countdownElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      timeLeft--;
+        if(timeLeft % 2 == 1 && timeLeft < 600) {
+            pulseRed('countdown');
+        }
+
+      if (timeLeft < 0) {
+        clearInterval(timer);
+        countdownElement.style.color = "#ff0000";
+        countdownElement.textContent = "YOU LOSE";
+      }
+    }, 1000);
+  });
+
+function pulseRed(elementId) {
+  const element = document.getElementById(elementId);
+  
+  // Add the animation class
+  element.classList.add('pulse-red');
+
+  // Remove the class after 1 second so it can be triggered again
+  setTimeout(() => {
+    element.classList.remove('pulse-red');
+  }, 1000);
+}
+  </script>
+</body>
+</html>

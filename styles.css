@@ -1,0 +1,140 @@
+@font-face {
+    font-family: "Title text";
+    src: url('fonts/Freedom-10eM.ttf') format('truetype');
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Combination";
+    src: url('fonts/Debrosee-ALPnL.ttf') format('truetype'),
+    url('fonts/7segment.ttf') format('truetype');
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Combination-Numbers";
+    src: url('fonts/7segment.ttf') format('truetype');
+    font-weight: bold;
+}
+body {
+  font-family: "Title text", "Combination", Arial, sans-serif;
+  background: #292929;
+  text-align: center;
+  margin-top: 100px;
+}
+#celebration {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(224, 144, 240, 0.95);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.celebration-title {
+    text-align: center;
+    color: #e9e9e9;
+    font-size: 5vw;
+}
+
+.celebration-text {
+    color: #e9e9e9;
+}
+
+h2 {
+    color: #e9e9e9;
+    font-size: 8vw;
+    word-spacing: -2vw;
+}
+h3 {
+    color: #757575;
+    font-size: 5vw;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+input, button {
+    vertical-align: middle;
+}
+
+input {
+    padding: none;
+    width: 60vw;
+    height: 7vw;
+    background-color: #e9e9e9;
+    border-start-start-radius: 2vw;
+    border-end-start-radius: 2vw;
+    color: #292929;
+    border: none;
+}
+#passkey {
+    font-family: "Combination";
+    text-align: center;
+    font-size: 3vw;
+}
+
+#passkey:hover {
+    background-color: #d1d1d1 !important;
+}
+
+#passkey:focus {
+    outline: none;
+}
+
+button {
+    align-self: left;
+    offset: 0px 100px;
+    padding: none;
+    border-end-end-radius: 2vw;
+    border-start-end-radius: 2vw;
+    background-color: #ff0000;
+    color: #e9e9e9;
+    font-family: "Combination";
+    font-size: 4vw;
+    width: 10vw;
+    height: 7vw;
+    border-color: #990000;
+    border-width: 0.5vw;
+}
+button:hover{
+    background-color: #cc0000;
+    color: #dddcdc;
+}
+
+.input-group {
+    display: inline-flex;
+    align-items: center;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: red;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fall 2s linear infinite;
+}
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+#countdown {
+    font-size: 20vw;
+    color: #e9e9e9;
+    font-family: "Combination", "Combination-Numbers", Arial, sans-serif;
+    margin-top: 0vw;
+    margin-bottom: 3vw;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .pulse-red {
+    animation: pulseRed 1s ease-in-out;
+  }
+  @keyframes pulseRed {
+    0% { color: red; }
+    100% { color: #e9e9e9; }
+  }
